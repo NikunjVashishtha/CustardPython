@@ -57,6 +57,59 @@ class DictionaryUtils:
             new_dict[insert_key] = insert_value
         return new_dict
 
+    @staticmethod
+    def merge(dict1: dict, dict2: dict) -> dict:
+        '''Merge two dictionaries. Values from dict2 overwrite those from dict1 if keys overlap.
+        
+        Args:
+            dict1 (dict): The first dictionary.
+            dict2 (dict): The second dictionary.
+        
+        Returns:
+            dict: The merged dictionary.
+        '''
+        result = dict(dict1)
+        result.update(dict2)
+        return result
+
+    @staticmethod
+    def filter_by_key(dictionary: dict, predicate) -> dict:
+        '''Filter dictionary by key using a predicate function.
+        
+        Args:
+            dictionary (dict): The dictionary to filter.
+            predicate (callable): Function that takes a key and returns True/False.
+        
+        Returns:
+            dict: Filtered dictionary.
+        '''
+        return {k: v for k, v in dictionary.items() if predicate(k)}
+
+    @staticmethod
+    def filter_by_value(dictionary: dict, predicate) -> dict:
+        '''Filter dictionary by value using a predicate function.
+        
+        Args:
+            dictionary (dict): The dictionary to filter.
+            predicate (callable): Function that takes a value and returns True/False.
+        
+        Returns:
+            dict: Filtered dictionary.
+        '''
+        return {k: v for k, v in dictionary.items() if predicate(v)}
+
+    @staticmethod
+    def invert(dictionary: dict) -> dict:
+        '''Invert keys and values in a dictionary.
+        
+        Args:
+            dictionary (dict): The dictionary to invert.
+        
+        Returns:
+            dict: Inverted dictionary.
+        '''
+        return {v: k for k, v in dictionary.items()}
+
 # Enhanced List Utilities
 class ListUtils:
     '''Enhanced list utility functions for common list operations.'''
@@ -72,6 +125,69 @@ class ListUtils:
             list: The reversed list.
         '''
         return list(lst)[::-1]
+
+    @staticmethod
+    def flatten(nested_list: list) -> list:
+        '''Flatten a nested list into a single list.
+        
+        Args:
+            nested_list (list): The list to flatten.
+        
+        Returns:
+            list: The flattened list.
+        '''
+        flat = []
+        for item in nested_list:
+            if isinstance(item, list):
+                flat.extend(ListUtils.flatten(item))
+            else:
+                flat.append(item)
+        return flat
+
+    @staticmethod
+    def deduplicate(lst: list) -> list:
+        '''Remove duplicates from a list while preserving order.
+        
+        Args:
+            lst (list): The list to deduplicate.
+        
+        Returns:
+            list: The deduplicated list.
+        '''
+        seen = set()
+        result = []
+        for item in lst:
+            if item not in seen:
+                seen.add(item)
+                result.append(item)
+        return result
+
+    @staticmethod
+    def chunk(lst: list, size: int) -> list:
+        '''Split a list into chunks of a given size.
+        
+        Args:
+            lst (list): The list to chunk.
+            size (int): The chunk size.
+        
+        Returns:
+            list: A list of chunks (lists).
+        '''
+        return [lst[i:i+size] for i in range(0, len(lst), size)]
+
+    @staticmethod
+    def rotate(lst: list, n: int) -> list:
+        '''Rotate a list by n positions.
+        
+        Args:
+            lst (list): The list to rotate.
+            n (int): Number of positions to rotate.
+        
+        Returns:
+            list: The rotated list.
+        '''
+        n = n % len(lst) if lst else 0
+        return lst[n:] + lst[:n]
 
 # Terminal Output Utilities
 class TerminalUtils:

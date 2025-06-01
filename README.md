@@ -33,6 +33,30 @@ new_d = DictionaryUtils.rename_key(d, 'a', 'alpha')
 # Reverse a list
 reversed_list = ListUtils.reversed_list([1, 2, 3])
 
+# Flatten a nested list
+flat = ListUtils.flatten([1, [2, [3, 4]], 5])
+
+# Remove duplicates from a list
+deduped = ListUtils.deduplicate([1, 2, 2, 3, 1])
+
+# Chunk a list
+chunks = ListUtils.chunk([1, 2, 3, 4, 5], 2)
+
+# Rotate a list
+rotated = ListUtils.rotate([1, 2, 3, 4], 2)
+
+# Merge two dictionaries
+merged = DictionaryUtils.merge({'a': 1}, {'b': 2})
+
+# Filter dictionary by key
+filtered_keys = DictionaryUtils.filter_by_key({'a': 1, 'b': 2}, lambda k: k == 'a')
+
+# Filter dictionary by value
+filtered_values = DictionaryUtils.filter_by_value({'a': 1, 'b': 2}, lambda v: v > 1)
+
+# Invert a dictionary
+inverted = DictionaryUtils.invert({'a': 1, 'b': 2})
+
 # Clear the terminal screen
 TerminalUtils.clear_screen()
 
@@ -55,7 +79,8 @@ emp = ChemistryUtils.empirical_formula("H2O2")
 ## Features
 
 - Dictionary key renaming and insertion
-- List reversal
+- Dictionary merging, filtering, and key/value inversion
+- List reversal, flattening, deduplication, chunking, and rotation
 - Terminal screen clearing and typewriter effect
 - Drawing triangles, squares, and hexagons in ASCII
 - Flexible date formatting
@@ -63,5 +88,3 @@ emp = ChemistryUtils.empirical_formula("H2O2")
 - Empirical formula calculation for chemical compounds
 
 ---
-Contributions and suggestions are welcome!
-
