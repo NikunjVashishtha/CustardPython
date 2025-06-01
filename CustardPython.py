@@ -1,233 +1,274 @@
-'''CustardPython is a library of custom python functions and methods that do not exist in Python by-default.
+'''CustardPython is a library of custom Python utility functions and methods that extend the standard library.
 
-It provides all functions of your need at one place'''
+It provides a collection of helpful functions for everyday programming tasks.'''
 
 from os import system, name
 from time import sleep
 import math
 from datetime import date
 
-# Custom Dictionary Functions
-class cusDict:
-    '''Custom dictionary functions from CustardPython.'''
+# Enhanced Dictionary Utilities
+class DictionaryUtils:
+    '''Enhanced dictionary utility functions for key manipulation and insertion.'''
 
     @staticmethod
-    def alterKey(DictionaryName: dict, OldKey: str, NewKey: str):
-        '''Switches the key of a dictionary value to a new one.'''
-
-        mainDict = dict(DictionaryName)
-        newDict = {}
-        for dictKey in mainDict.keys():
-            if mainDict[dictKey] == mainDict[OldKey]:
-                newDict[NewKey] = mainDict[dictKey]
+    def rename_key(dictionary: dict, old_key: str, new_key: str) -> dict:
+        '''Return a new dictionary with the specified key renamed.
+        
+        Args:
+            dictionary (dict): The original dictionary.
+            old_key (str): The key to rename.
+            new_key (str): The new key name.
+        
+        Returns:
+            dict: A new dictionary with the key renamed.
+        '''
+        main_dict = dict(dictionary)
+        new_dict = {}
+        for key in main_dict:
+            if key == old_key:
+                new_dict[new_key] = main_dict[key]
             else:
-                newDict[dictKey] = mainDict[dictKey]
-            print(dictKey)
-        return newDict
+                new_dict[key] = main_dict[key]
+        return new_dict
 
     @staticmethod
-    def insertBefore(DictionaryName: dict, PreviousKey: str, Key: str, Value: str):
-        '''Inserts a dictionary element before a chosen element.'''
+    def insert_before(dictionary: dict, before_key: str, insert_key: str, insert_value) -> dict:
+        '''Return a new dictionary with a key-value pair inserted before a specified key.
         
-        mainDict = dict(DictionaryName)
-        newDict = {}
-        for dictKey in mainDict.keys():
-            if mainDict[dictKey] == mainDict[PreviousKey]:
-                newDict[Key] = Value
-            newDict[dictKey] = mainDict[dictKey]
-        return newDict
-    
-class cusList:
-    '''Custom list functions from CustardPython.'''
-
-    @staticmethod
-    def reverse(ListName: list):
-        '''Reverses a list.'''
-
-        mainList = list(ListName)
-        newList = mainList[::-1]
-        return newList
-
-class cusScr:
-    '''Custom functions for program screen output from CustardPython.'''
-
-    @staticmethod
-    def clear():
-        '''Clears the terminal while program is running.'''
-
-        if name == 'nt':
-            _ = system('cls')
-        else:
-            _ = system('clear')
-    
-    @staticmethod
-    def typeWrite(String: str,Delay: float):
-        '''String is the text to be printed; Delay is the time between two consecutive text prints.'''
+        Args:
+            dictionary (dict): The original dictionary.
+            before_key (str): The key before which to insert.
+            insert_key (str): The key to insert.
+            insert_value: The value to insert.
         
-        for ltr in String:
-            print(ltr,end="",flush=True)
-            sleep(Delay)
+        Returns:
+            dict: A new dictionary with the key-value pair inserted.
+        '''
+        main_dict = dict(dictionary)
+        new_dict = {}
+        inserted = False
+        for key in main_dict:
+            if key == before_key and not inserted:
+                new_dict[insert_key] = insert_value
+                inserted = True
+            new_dict[key] = main_dict[key]
+        if not inserted:
+            new_dict[insert_key] = insert_value
+        return new_dict
+
+# Enhanced List Utilities
+class ListUtils:
+    '''Enhanced list utility functions for common list operations.'''
+
+    @staticmethod
+    def reversed_list(lst: list) -> list:
+        '''Return a new list that is the reverse of the input list.
+        
+        Args:
+            lst (list): The list to reverse.
+        
+        Returns:
+            list: The reversed list.
+        '''
+        return list(lst)[::-1]
+
+# Terminal Output Utilities
+class TerminalUtils:
+    '''Utility functions for terminal screen output and effects.'''
+
+    @staticmethod
+    def clear_screen():
+        '''Clear the terminal screen.'''
+        system('cls' if name == 'nt' else 'clear')
+    
+    @staticmethod
+    def typewriter(text: str, delay: float):
+        '''Print text to the terminal with a typewriter effect.
+        
+        Args:
+            text (str): The text to print.
+            delay (float): Delay in seconds between each character.
+        '''
+        for char in text:
+            print(char, end="", flush=True)
+            sleep(delay)
         print()
 
-class cusShape:
-    '''Draw shapes on your screen with a symbol.'''
+# ASCII Shape Drawing Utilities
+class ShapeDrawer:
+    '''Draw ASCII shapes on the terminal using a specified symbol.'''
 
     @staticmethod
-    def triangle(Side: int,Element: str):
-        '''Side(int) is the length of side of equilateral triangle.'''
-
-        for i in range(1,Side+1):
-            print(" "*(Side+1-i),end="")
-            for j in range(0,i):
-                print(f"{Element} ",end="")
-            print()
-    
-    @staticmethod
-    def square(Side: int,Element: str):
-        '''Side(int) is the length of side of square.'''
-
-        for i in range(1,Side):
-            for j in range(1,Side):
-                print(f"{Element} ",end="")
-            print()
-
-    @staticmethod
-    def hexagon(Side: int, Element: str):
-        '''Side(int) is the length of side of hexagon.'''
-
-        for i in range(Side,2*Side-1):
-            print(" "*(2*Side-1-i),end="")
-            for j in range(0,i):
-                print(f"{Element} ",end="")
-            print()
-        for i in range(2*Side-1,Side-1,-1):
-            print(" "*(2*Side-1-i),end="")
-            for j in range(0,i):
-                print(f"{Element} ",end="")
-            print()
-
-class cusDate:
-    '''Custom date functions'''
-
-    @staticmethod
-    def date(Format: str,Year: int = date.today().year, Month: int = date.today().month,Day: int = date.today().day) :
+    def draw_triangle(side_length: int, symbol: str):
+        '''Draw an equilateral triangle of a given side length.
+        
+        Args:
+            side_length (int): The length of each side.
+            symbol (str): The symbol to use for drawing.
         '''
-        Returns a date in a given format
+        for i in range(1, side_length+1):
+            print(" "*(side_length+1-i), end="")
+            print(f"{symbol} " * i)
 
-        MM/DD/YYYY
-
-        DD/MM/YYYY
-
-        YYYY/MM/DD
-
-        Month Day(31), Year
-
-        Weekday Day(31)
+    @staticmethod
+    def draw_square(side_length: int, symbol: str):
+        '''Draw a square of a given side length.
+        
+        Args:
+            side_length (int): The length of each side.
+            symbol (str): The symbol to use for drawing.
         '''
+        for _ in range(side_length):
+            print(f"{symbol} " * side_length)
 
+    @staticmethod
+    def draw_hexagon(side_length: int, symbol: str):
+        '''Draw a hexagon of a given side length.
+        
+        Args:
+            side_length (int): The length of each side.
+            symbol (str): The symbol to use for drawing.
+        '''
+        for i in range(side_length, 2*side_length-1):
+            print(" "*(2*side_length-1-i), end="")
+            print(f"{symbol} " * i)
+        for i in range(2*side_length-1, side_length-1, -1):
+            print(" "*(2*side_length-1-i), end="")
+            print(f"{symbol} " * i)
+
+# Date Formatting Utilities
+class DateUtils:
+    '''Utility functions for formatting and manipulating dates.'''
+
+    @staticmethod
+    def formatted_date(fmt: str, year: int = date.today().year, month: int = date.today().month, day: int = date.today().day) -> str:
+        '''
+        Return a date string in the specified format.
+
+        Supported formats:
+            - MM/DD/YYYY
+            - DD/MM/YYYY
+            - YYYY/MM/DD
+            - Month Day(31), Year
+            - Weekday Day(31)
+        '''
         days = {0:"Monday",1:"Tuesday",2:"Wednesday",3:"Thursday",4:"Friday",5:"Saturday",6:"Sunday"}
         months = {1:"January",2:"February",3:"March",4:"April",5:"May",6:"June",7:"July",8:"August",9:"September",10:"October",11:"November",12:"December"}
-        dateUsed = date(Year,Month,Day)
-        year = dateUsed.year
-        month = dateUsed.month
-        monthName = months[month]
-        dat = dateUsed.day
-        day = dateUsed.weekday()
-        dayName = days[day]
-        mainDate = ""
-        if Format == "MM/DD/YYYY":
-            mainDate = f"{month}/{dat}/{year}"
-        elif Format == "DD/MM/YYYY":
-            mainDate = f"{dat}/{month}/{year}"
-        elif Format == "YYYY/MM/DD":
-            mainDate = f"{year}/{month}/{dat}"
-        elif Format == "Month Day(31), Year":
-            mainDate = f"{monthName} {dat}, {year}"
-        elif Format == "Weekday Day(31)":
-            mainDate = f"{dayName} {dat}"
-        return mainDate
+        date_used = date(year, month, day)
+        year_val = date_used.year
+        month_val = date_used.month
+        month_name = months[month_val]
+        day_val = date_used.day
+        weekday = date_used.weekday()
+        weekday_name = days[weekday]
+        if fmt == "MM/DD/YYYY":
+            return f"{month_val}/{day_val}/{year_val}"
+        elif fmt == "DD/MM/YYYY":
+            return f"{day_val}/{month_val}/{year_val}"
+        elif fmt == "YYYY/MM/DD":
+            return f"{year_val}/{month_val}/{day_val}"
+        elif fmt == "Month Day(31), Year":
+            return f"{month_name} {day_val}, {year_val}"
+        elif fmt == "Weekday Day(31)":
+            return f"{weekday_name} {day_val}"
+        else:
+            raise ValueError("Unknown date format")
 
-class cusMath:
-    '''Custom Math functions from CustardPython.'''
-
-    @staticmethod
-    def Collatz(Number: float,PrintSteps: bool = False):
-        '''Number(int) is the starting number, PrintSteps(Default: False) prints intemediate numbers.'''
-        
-        if PrintSteps == True:
-            print(Number)
-        i = 1
-        while Number != 1:
-            if Number%2 == 0:
-                Number /= 2
-            else:
-                Number = (Number * 3)+1
-            if PrintSteps == True:
-                print(int(Number))
-            i += 1
-        steps = i
-        return steps
-    
-class cusChem:
-    '''Some chemisty concepts made easier with CustardPython.'''
+# Math Utilities
+class MathUtils:
+    '''Mathematical utility functions for number theory and sequences.'''
 
     @staticmethod
-    def emp(Formula: str) -> str:
-        '''Instructions:\
-
-    1. Don't leave any space between Elements and Numbers.\
-    
-        Eg: H2O2 (For Hydrogen Peroxide)\
+    def collatz_steps(number: float, print_steps: bool = False) -> int:
+        '''Compute the number of steps in the Collatz sequence for a given number.
         
-    2. In case the number of atoms of Element if one then it must be followed by \"1\".\
+        Args:
+            number (float): The starting number.
+            print_steps (bool): If True, print each step.
         
-        Eg: Mg1Cl2 (For Magnesium Chloride)
+        Returns:
+            int: The number of steps to reach 1.
         '''
+        if print_steps:
+            print(int(number))
+        i = 1
+        while number != 1:
+            if number % 2 == 0:
+                number /= 2
+            else:
+                number = number * 3 + 1
+            if print_steps:
+                print(int(number))
+            i += 1
+        return i
 
+# Chemistry Utilities
+class ChemistryUtils:
+    '''Utility functions for basic chemistry calculations and formula manipulation.'''
+
+    @staticmethod
+    def empirical_formula(formula: str) -> str:
+        '''
+        Convert a molecular formula to its empirical formula.
+
+        Instructions:
+        1. Do not leave any space between elements and numbers.
+           Eg: H2O2 (for hydrogen peroxide)
+        2. If the number of atoms of an element is one, it must be followed by "1".
+           Eg: Mg1Cl2 (for magnesium chloride)
+
+        Args:
+            formula (str): The molecular formula.
+
+        Returns:
+            str: The empirical formula.
+        '''
         chars = []
         nums = []
-        newNums = []
-        elements = ['H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne', 'Na', 'Mg', 'Al', 'Si',
+        new_nums = []
+        elements = [
+            'H', 'He', 'Li', 'Be', 'B', 'C', 'N', 'O', 'F', 'Ne', 'Na', 'Mg', 'Al', 'Si',
             'P', 'S', 'Cl', 'Ar', 'K', 'Ca', 'Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni',
             'Cu', 'Zn', 'Ga', 'Ge', 'As', 'Se', 'Br', 'Kr', 'Rb', 'Sr', 'Y', 'Zr', 'Nb',
             'Mo', 'Tc', 'Ru', 'Rh', 'Pd', 'Ag', 'Cd', 'In', 'Sn', 'Sb', 'Te', 'I', 'Xe',
             'Cs', 'Ba', 'La', 'Ce', 'Pr', 'Nd', 'Pm', 'Sm', 'Eu', 'Gd', 'Tb', 'Dy', 'Ho',
             'Er', 'Tm', 'Yb', 'Lu', 'Hf', 'Ta', 'W', 'Re', 'Os', 'Ir', 'Pt', 'Au', 'Hg',
             'Tl', 'Pb', 'Bi', 'Po', 'At', 'Rn', 'Fr', 'Ra', 'Ac', 'Th', 'Pa', 'U', 'Np',
-            'Pu', 'Am', 'Cu', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr', 'Rf', 'Db', 'Sg',
-            'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og']
-        formula = Formula+"A"
+            'Pu', 'Am', 'Bk', 'Cf', 'Es', 'Fm', 'Md', 'No', 'Lr', 'Rf', 'Db', 'Sg',
+            'Bh', 'Hs', 'Mt', 'Ds', 'Rg', 'Cn', 'Nh', 'Fl', 'Mc', 'Lv', 'Ts', 'Og'
+        ]
+        formula = formula + "A"
         num = ""
         alpha = ""
         for a in formula:
             if a.isdigit():
                 num += a
-                if alpha != "":
+                if alpha:
                     if alpha.capitalize() in elements:
                         chars.append(alpha.capitalize())
                     else:
-                        ValueError("Invalid chemical formula !")
-                alpha = ""
+                        raise ValueError("Invalid chemical formula!")
+                    alpha = ""
             elif a.isalpha():
                 alpha += a
-                if num != "":
+                if num:
                     nums.append(num)
-                num = ""
+                    num = ""
             else:
-                ValueError("Invalid chemical formula !")
-        i = 0
-        while i < len(nums):
-            nums[i] = int(nums[i])
-            i += 1
+                raise ValueError("Invalid chemical formula!")
+        if num:
+            nums.append(num)
+        if alpha and alpha.capitalize() in elements:
+            chars.append(alpha.capitalize())
+        if len(nums) != len(chars):
+            raise ValueError("Invalid chemical formula!")
+        nums = [int(x) for x in nums]
         gcd = math.gcd(*nums)
         for a in nums:
-            if int(a)/gcd == 1:
-                newNums.append("")
-            else:
-                newNums.append(int(int(a)/gcd))
-        i = 0
-        newFormula = ""
-        while i < len(chars):
-            newFormula += chars[i]+str(newNums[i])
-            i += 1
-        return newFormula
+            val = int(a) // gcd
+            new_nums.append("" if val == 1 else str(val))
+        new_formula = ""
+        for i in range(len(chars)):
+            new_formula += chars[i] + new_nums[i]
+        return new_formula
